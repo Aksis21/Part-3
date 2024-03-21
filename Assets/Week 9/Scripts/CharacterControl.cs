@@ -7,6 +7,7 @@ public class CharacterControl : MonoBehaviour
 {
     public TMPro.TextMeshProUGUI currentSelection;
     public static CharacterControl Instance;
+    public List<Villager> villagerList = new List<Villager>();
     public static Villager SelectedVillager { get; private set; }
 
     private void Start()
@@ -23,6 +24,11 @@ public class CharacterControl : MonoBehaviour
         SelectedVillager = villager;
         SelectedVillager.Selected(true);
         Instance.currentSelection.text = villager.ToString();
+    }
+
+    public void DropDownSelection(int value)
+    {
+        SetSelectedVillager(villagerList[value]);
     }
 
     //private void Update()
