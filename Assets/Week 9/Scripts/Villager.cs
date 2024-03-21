@@ -16,6 +16,13 @@ public class Villager : MonoBehaviour
     Vector2 movement;
     protected float speed = 3;
 
+    //This float is public so that it can receive the slider's value from CharacterControl.
+    public float scaler = 1;
+
+    //This boolean exists solely to allow us to scale the character before and after a destination
+    //has been set. You'll see later in the code.
+    bool isDestSet = false;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -42,16 +49,29 @@ public class Villager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //While this boolean is active - signifying that no destination has been set - the scale
+        //of the character is set based off of a Vector2.one using the scaler float set earlier.
+        //Using a Vector2.one allows us to update the localScale properly.
+        if (isDestSet == false)
+        {
+            transform.localScale = Vector2.one * scaler;
+        }
+
         movement = destination - (Vector2)transform.position;
+
+        //Once the isDestSet boolean has been switched, the scaler float is now being multipled onto
+        //these two localScale functions. This is necessary to prevent massive amounts of glitching and
+        //tearing that would otherwise be caused, since this function is constantly trying to adjust
+        //the scale itself.
 
         //flip the x direction of the game object & children to face the direction we're walking
         if(movement.x > 0)
         {
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(-1, 1, 1) * scaler;
         }
         else if (movement.x < 0)
         {
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = new Vector3(1, 1, 1) * scaler;
         }
 
         //stop moving if we're close enough to the target
@@ -66,9 +86,16 @@ public class Villager : MonoBehaviour
 
     protected virtual void Update()
     {
+        //Here, I added in an extra condition that prevents the mouse from setting a new destination while over any
+        //UI elements. This largely felt like a worthwhile change, preventing the characters from constantly moving
+        //over to the drop-down menu or the slider, but does admittedly come at the minor cost of preventing the
+        //mouse from setting a destination where the individual character names are slightly over their heads.
+
         //left click: move to the click location
-        if (Input.GetMouseButtonDown(0) && isSelected && !clickingOnSelf)
+        if (Input.GetMouseButtonDown(0) && isSelected && !clickingOnSelf && !EventSystem.current.IsPointerOverGameObject())
         {
+            //This flips the "is destination set" variable to true.
+            isDestSet = true;
             destination = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
 

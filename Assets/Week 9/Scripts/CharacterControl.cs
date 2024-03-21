@@ -31,6 +31,17 @@ public class CharacterControl : MonoBehaviour
         SetSelectedVillager(villagerList[value]);
     }
 
+    //This is stupid. But, it works. This function is altered directly by the slider, and passes
+    //the slider's value to a public float located in the Villager function if and ONLY if there
+    //is a selected villager. Without this check for a null reference, Unity would give an error.
+    public void SetVillagerScale(float value)
+    {
+        if (SelectedVillager != null)
+        {
+            SelectedVillager.scaler = value;
+        }
+    }
+
     //private void Update()
     //{
     //    if(SelectedVillager != null)
