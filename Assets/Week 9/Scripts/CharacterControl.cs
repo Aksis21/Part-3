@@ -1,20 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class CharacterControl : MonoBehaviour
 {
-    public TextMeshProUGUI charText;
-    public static CharacterControl instance;
+    public TMPro.TextMeshProUGUI currentSelection;
+    public static CharacterControl Instance;
+    public static Villager SelectedVillager { get; private set; }
 
     private void Start()
     {
-        instance = this;
+        Instance = this;
     }
 
-    public static Villager SelectedVillager { get; private set; }
     public static void SetSelectedVillager(Villager villager)
     {
         if(SelectedVillager != null)
@@ -23,7 +22,14 @@ public class CharacterControl : MonoBehaviour
         }
         SelectedVillager = villager;
         SelectedVillager.Selected(true);
-
-        instance.charText.text = villager.ToString();
+        Instance.currentSelection.text = villager.ToString();
     }
+
+    //private void Update()
+    //{
+    //    if(SelectedVillager != null)
+    //    {
+    //        currentSelection.text = SelectedVillager.GetType().ToString();
+    //    }
+    //}
 }
