@@ -6,10 +6,12 @@ public class Missile : MonoBehaviour
 {
     public float speed;
     Rigidbody2D rb;
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        //adds initial force to the missile so it moves in its spawned direction
+        //speed is public so it can be adjusted for each missile type if necessary
         rb.AddForce(transform.up * speed);
     }
 

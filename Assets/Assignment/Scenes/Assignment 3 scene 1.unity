@@ -953,7 +953,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missile: {fileID: 103643289995796888, guid: 36f0cdd9900711242b67cbc5d577c684, type: 3}
   spawn: {fileID: 1335596812}
+  fireDelay: 1
   rotSpeed: 2
+  thisSpeed: 20
 --- !u!212 &768041551
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8095,6 +8097,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missile: {fileID: 5772760755435421137, guid: b99ebf5209867c740a3d07a4980a8898, type: 3}
   spawn: {fileID: 2028186030}
+  fireDelay: 2
+  thisSpeed: 10
 --- !u!1 &2028186029
 GameObject:
   m_ObjectHideFlags: 0
@@ -8160,6 +8164,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missile: {fileID: 103643289995796888, guid: 36f0cdd9900711242b67cbc5d577c684, type: 3}
   spawn: {fileID: 215639207}
+  fireDelay: 1
+  thisSpeed: 20
+  rotationSpeed: 3
 --- !u!4 &2059741127
 Transform:
   m_ObjectHideFlags: 0
